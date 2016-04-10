@@ -66,6 +66,8 @@ function changeChannel() {
         notifyChannelQuit()
         notifyChannelJoin()
     }
+    $('#channels').closeModal();
+
 }
 
 function changeNick() {
@@ -86,6 +88,7 @@ function changeNick() {
         notifyNameChange()
         Materialize.updateTextFields()
     }
+    $('#nicks').closeModal();
 }
 
 function notifyNameChange() {

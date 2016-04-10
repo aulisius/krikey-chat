@@ -3,7 +3,7 @@
 
 <head>
     <title>Krikey - The chat app</title>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
     <link rel="stylesheet" href="css/style.css">
 
@@ -15,10 +15,10 @@
         <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Krikey</a>
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <a href="#nicks" class="modal-trigger">
+                    <a id="nick" href="#nicks" class="modal-trigger">
                         <i class="material-icons">account_circle</i>
                     </a>
-                    <a href="#channels" class="modal-trigger">
+                    <a id="group" href="#channels" class="modal-trigger">
                         <i class="material-icons">group_add</i>
                     </a>
 
@@ -26,12 +26,12 @@
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
-                    <a id="changeNick" href="#">
+                    <a id="nick_s" class="modal-trigger" href="#nicks">
                         <i class="material-icons left">account_circle</i> Change nick
                     </a>
                 </li>
                 <li>
-                    <a id="changeChannel" href="#" >
+                    <a id="group_s" class="modal-trigger" href="#channels" >
                         <i class="material-icons left">group_add</i> Change channel
                     </a>
                 </li>
@@ -49,8 +49,7 @@
     </nav>
     <div class="container">
         <div class="description">
-            <h3 class="black-text center fixed"> #general</h3>
-            <!--            <h2 class="flow-text center fixed-text"> General discussion from nothing to everything </h2> -->
+            <h5 class="black-text center channel-name">general</h5>
         </div>
         <div class="divider break"></div>
         <ul id="messages"></ul>
@@ -65,6 +64,7 @@
             </div>
         </form>
     </div>
+    
     <div id="nicks" class="modal bottom-sheet">
         <div class="modal-content">
             <form action="">
@@ -96,9 +96,6 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat" onclick="changeChannel()">Done</a>
         </div>
     </div>
-
-    </div>
-
 
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
