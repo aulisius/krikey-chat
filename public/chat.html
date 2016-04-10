@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Krikey - The chat app</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
+    <link rel="stylesheet" href="css/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Krikey</a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="#nicks" class="modal-trigger">
+                        <i class="material-icons">account_circle</i>
+                    </a>
+                    <a href="#channels" class="modal-trigger">
+                        <i class="material-icons">group_add</i>
+                    </a>
+
+                </li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li>
+                    <a id="changeNick" href="#">
+                        <i class="material-icons left">account_circle</i> Change nick
+                    </a>
+                </li>
+                <li>
+                    <a id="changeChannel" href="#" >
+                        <i class="material-icons left">group_add</i> Change channel
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="gotoTop()">
+                        <i class="material-icons left">navigation</i> To Top
+                    </a>
+                </li>
+
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse">
+                <i class="material-icons">menu</i>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="description">
+            <h3 class="black-text center fixed"> #general</h3>
+            <!--            <h2 class="flow-text center fixed-text"> General discussion from nothing to everything </h2> -->
+        </div>
+        <div class="divider break"></div>
+        <ul id="messages"></ul>
+        <form id="msg" action="">
+            <div class="row">
+                <div class="input-field col s8 m10 l9 pull-l1">
+                    <input id="m" maxlength="140" autofocus="autofocus" autocomplete="off" required placeholder="Your message here" />
+                </div>
+                <div class="col s4 m2 l2">
+                    <button class="btn waves-effect light-blue"><i class="material-icons">send</i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="nicks" class="modal bottom-sheet">
+        <div class="modal-content">
+            <form action="">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="nick" value="Anonymous" type="text" autocomplete="off" required class="validate">
+                        <label for="name">Your nick</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat" onclick="changeNick()">Done</a>
+        </div>
+    </div>
+
+    <div id="channels" class="modal bottom-sheet">
+        <div class="modal-content">
+            <form action="">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="channel" value="general" type="text" autocomplete="off" required class="validate">
+                        <label for="name">Current channel</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat" onclick="changeChannel()">Done</a>
+        </div>
+    </div>
+
+    </div>
+
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jscolor.min.js"></script>
+</body>
+
+</html>

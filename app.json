@@ -1,0 +1,8 @@
+{
+  "name": "krikey",
+  "description": "A chat app",
+  "repository": "https://github.com/faizaanceg/krikey-chat",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "chat", "socketio"],
+  "image": "heroku/nodejs"
+}

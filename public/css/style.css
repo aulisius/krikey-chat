@@ -1,0 +1,75 @@
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+      
+body { 
+    font: 15px Roboto, Sans serif; 
+}
+
+form { 
+    background: #fff; 
+    padding: 3px; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+}
+
+li.divider {
+    height: 0px !important ;
+    background-color: transparent;
+}
+
+.row {
+    padding-bottom: 0px;
+}
+
+.card-title {
+    font-size: 15px !important;
+}
+
+.card-content {
+    padding: 10px !important;
+}
+
+#messages { 
+    list-style-type: none; 
+    margin: 0; 
+    margin-bottom: 50px;
+    padding: 0; 
+}
+
+.nick {
+    font-size: 20px;
+    font-family: Roboto, serif;
+}
+
+
+#messages li {
+    padding-top : 10px;
+    border: 0;
+    background-color: transparent;
+}
+
+.message {
+    color: #000;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    background: #eee;
+}
+
+.incoming {
+    color: #f0f;
+    text-align: start;
+}  
+
+.outgoing {
+    color: #fe0;
+    text-align: end;
+    
+}

@@ -1,0 +1,32 @@
+{
+    "name": "quill-chat",
+    "version": "0.0.1",
+    "description": "chat app for task 2",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "dependencies": {
+        "express": "4.13.4",
+        "body-parser": "~1.15.0",
+        "morgan": "~1.6.1",
+        "cookie-parser": "~1.4.1",
+        "debug": "~2.2.0",
+        "serve-favicon": "~2.3.0",
+        "materialize-css": "^0.97.6",
+        "socket.io": "1.4.5"
+    },
+    "engines": {
+        "node": "5.6.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/faizaanceg/krikey-chat"
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "express",
+        "socketio"
+    ],
+    "license": "MIT"
+}
