@@ -15,10 +15,10 @@
         <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Krikey</a>
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <a id="nick" href="#nicks" class="modal-trigger">
+                    <a id="nick" href="#nicks" onclick="changeNick()" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Change your nick">
                         <i class="material-icons">account_circle</i>
                     </a>
-                    <a id="group" href="#channels" class="modal-trigger">
+                    <a id="group" href="#channels" onclick="changeChannel()" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Change your channel">
                         <i class="material-icons">group_add</i>
                     </a>
 
@@ -26,12 +26,12 @@
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
-                    <a id="nick_s" class="modal-trigger" href="#nicks">
+                    <a id="nick_s" onclick="changeNick()">
                         <i class="material-icons left">account_circle</i> Change nick
                     </a>
                 </li>
                 <li>
-                    <a id="group_s" class="modal-trigger" href="#channels" >
+                    <a id="group_s" onclick="changeChannel()">
                         <i class="material-icons left">group_add</i> Change channel
                     </a>
                 </li>
@@ -49,14 +49,14 @@
     </nav>
     <div class="container">
         <div class="description">
-            <h5 class="black-text center channel-name">general</h5>
+            <h5 id="channel-name" class="black-text center">general</h5>
         </div>
         <div class="divider break"></div>
         <ul id="messages"></ul>
         <form id="msg" action="">
             <div class="row">
                 <div class="input-field col s8 m10 l9 pull-l1">
-                    <input id="m" maxlength="140" autofocus="autofocus" autocomplete="off" required placeholder="Your message here" />
+                    <input id="m" maxlength="140" autofocus autocomplete="off" required placeholder="Your message here" />
                 </div>
                 <div class="col s4 m2 l2">
                     <button class="btn waves-effect light-blue"><i class="material-icons">send</i></button>
@@ -64,36 +64,38 @@
             </div>
         </form>
     </div>
-    
-    <div id="nicks" class="modal bottom-sheet">
+
+    <div id="nicks" class="modal ">
         <div class="modal-content">
-            <form action="">
+            <form id="mynick" action="#">
                 <div class="row">
-                    <div class="input-field col s12">
-                        <input id="nick" value="Anonymous" type="text" autocomplete="off" required class="validate">
+                    <div class="input-field col s8">
+                        <input id="nick" value="Anonymous" autofocus type="text" autocomplete="off" required class="validate">
                         <label for="name">Your nick</label>
                     </div>
+                    <div class="col s4 m2 l2">
+                        <button class="btn waves-effect light-blue"><i class="material-icons">save</i></button>
+                    </div>
+
                 </div>
             </form>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat" onclick="changeNick()">Done</a>
         </div>
     </div>
 
     <div id="channels" class="modal bottom-sheet">
         <div class="modal-content">
-            <form action="">
+            <form id="mychannel" action="#">
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s8">
                         <input id="channel" value="general" type="text" autocomplete="off" required class="validate">
                         <label for="name">Current channel</label>
                     </div>
+                    <div class="col s4 m2 l2">
+                        <button class="btn waves-effect light-blue"><i class="material-icons">save</i></button>
+                    </div>
+
                 </div>
             </form>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat" onclick="changeChannel()">Done</a>
         </div>
     </div>
 

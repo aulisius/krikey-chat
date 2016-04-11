@@ -1,7 +1,9 @@
 $(function() {
-    $('.button-collapse').sideNav()
+    $('.button-collapse').sideNav({
+        closeOnClick: true
+    })
     $('.modal-trigger').leanModal()
-});
+})
 
 var socket = io()
 var currentChannel = "general"
@@ -9,6 +11,10 @@ var previousChannel = "general"
 
 var currentNick = "Anonymous"
 var previousNick = "Anonymous"
+
+var welcomeStr = "Hello Anon! Welcome to Krikey, the privacy oriented chat app (We swear ;) )\n You can use the menu on the side (if you are on mobile) or the top to change your name and your channel. Have fun! Enjoy your stay!"
+
+$('#messages').append(welcomeMsg())
 
 function getUser() {
     var user = {}
@@ -34,11 +40,27 @@ function makeNewMsg(dir, color, data) {
                     .append(
                     $('<div>').attr('class', 'card-content white-text')
                         .append(
-                        $('<span>').attr('class', 'card-title').text(data.info.nick)
+                        $('<span>').attr('class', 'card-title flow-text').text(data.info.nick)
                         )
                         .append(
                         $('<p>').text(data.msg)
                         )
+                    )
+                )
+            )
+        )
+}
+
+function welcomeMsg() {
+    return $('<li>')
+        .append(
+        $('<div>').attr('class', 'row welcome')
+            .append(
+            $('<div>').attr('class', 'col s12 m12 center')
+                .append(
+                $('<div>').attr('class', 'card-panel light-blue')
+                    .append(
+                    $('<span>').attr('class', 'white-text flow-text').text(welcomeStr)
                     )
                 )
             )
@@ -51,44 +73,39 @@ function gotoTop() {
 
 function changeChannel() {
     console.log('Changing channel...')
-    var channel = $('#channel').val()
-    $('#channel').trigger('autoresize')
-    $('#m').trigger('autoresize')
+    var channel = prompt('Enter new channel', previousChannel);
+    console.log(channel)
 
-    channel = channel.replace('/\s+/g', '')
-    if (channel.length === 0) return
-
-    if (currentChannel === channel) {
-        return
-    } else {
-        previousChannel = currentChannel
-        currentChannel = channel
-        notifyChannelQuit()
-        notifyChannelJoin()
+    if (channel != null) {
+        channel = channel.replace('/\s+/g', '_')
+        if (currentChannel === channel) {
+            return
+        } else {
+            previousChannel = currentChannel
+            currentChannel = channel
+            notifyChannelJoin()
+            notifyChannelQuit()
+            $('#channel-name').text(currentChannel)
+            addNewNotif('You changed your channel to ' + currentChannel)
+        }
     }
-    $('#channels').closeModal();
-
 }
 
 function changeNick() {
     console.log('Changing nick...')
+    var nick = prompt('Enter new nick', previousNick);
 
-    var nick = $('#nick').val()
-    $('#nick').trigger('autoresize')
-    $('#m').trigger('autoresize')
-
-    nick = nick.replace('/\s+/g', '')
-    if (nick.length === 0) return
-
-    if (currentNick === nick) {
-        return
-    } else {
-        previousNick = currentNick
-        currentNick = nick
-        notifyNameChange()
-        Materialize.updateTextFields()
+    if (nick != null) {
+        nick = nick.replace('/\s+/g', '_')
+        if (currentNick === nick) {
+            return
+        } else {
+            previousNick = currentNick
+            currentNick = nick
+            addNewNotif('You changed your nick to ' + currentNick)
+            notifyNameChange()
+        }
     }
-    $('#nicks').closeModal();
 }
 
 function notifyNameChange() {
@@ -103,23 +120,21 @@ function notifyChannelJoin() {
     socket.emit('Channel.Join', getUser())
 }
 
-$('#changeChannel').click(function() {
-    $('#channels').openModal()
-})
-
-
-$('#changeNick').click(function() {
-    $('#nicks').openModal()
-})
-
 $('#msg').submit(function() {
 
     var data = {}
     data.msg = $('#m').val()
     data.info = getUser().curr
-    $('#messages').append(makeNewMsg('right', 'light-blue', data))
-    $('#messages').append($('<br>'))
 
+    if ($('.welcome').length > 0)
+        $('.welcome').remove()
+
+    $('#messages').append(makeNewMsg('right', 'light-blue', data))
+    $('#messages').append(
+        $('<li>').append(
+            $('<br>')
+        )
+    )
     window.scrollTo(0, document.body.scrollHeight)
 
     socket.emit('Message.Send', data)
@@ -130,36 +145,33 @@ $('#msg').submit(function() {
 
 socket.on('Message.Receive', function(user) {
     if (user.info.channel === currentChannel) {
+
+        if ($('.welcome').length > 0)
+            $('.welcome').remove()
+
         $('#messages').append(makeNewMsg('left', 'orange', user))
         $('#messages').append(
             $('<li>').append(
-                $('<div>').attr('class', 'divider')
+                $('<br>')
             )
         )
+        window.scrollTo(0, document.body.scrollHeight)
     }
 })
 
-
 socket.on('Channel.Quit', function(nick) {
-    //addNewNotif
-    console.log(nick + ' quit this channel')
-
+    addNewNotif(nick.nick + ' quit this channel')
 })
 
 socket.on('Channel.Join', function(nick) {
-    //addNewNotif
-    console.log(nick + ' joined this channel')
-
+    addNewNotif(nick.nick + ' joined this channel')
 })
 
 socket.on('Nick.Changed', function(nick) {
-    //addNewNotif
-    console.log(nick + ' joined this channel')
-
+    addNewNotif(nick.prev.nick + ' is now ' + nick.curr.nick)
 })
 
-socket.on('Channel.Enter', function(nick) {
-    //addNewNotif
-    console.log(nick + ' joined this channel')
-
-})
+function addNewNotif(info) {
+    Materialize.toast(info, 2500)
+    console.log(info)
+}

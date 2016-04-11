@@ -42,12 +42,12 @@ io.on('connection', socket => {
     
     socket.on('Channel.Join', user => {
         console.log(user)
-        socket.broadcast.emit('Channel.Enter', user.curr)
+        socket.broadcast.emit('Channel.Join', user.curr)
     })
     
     socket.on('Nick.Changed', user => {
         console.log(user)
-        socket.broadcast.emit('Nick.Changed', user.curr)
+        socket.broadcast.emit('Nick.Changed', user)
     })
     
 })
@@ -107,4 +107,3 @@ server.on('listening', onListening)
 app.use((err, req, res, next) => {
     console.log(err + ' ' + err.message)
 })
-
