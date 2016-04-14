@@ -14,8 +14,6 @@ var previousNick = "Anonymous"
 
 var welcomeStr = "Hello Anon! Welcome to Krikey, the privacy oriented chat app (We swear ;) )\n You can use the menu on the side (if you are on mobile) or the top to change your name and your channel. Have fun! Enjoy your stay!"
 
-$('#messages').append(welcomeMsg())
-
 function getUser() {
     var user = {}
     user.prev = {
@@ -29,8 +27,8 @@ function getUser() {
     return user
 }
 
-function makeNewMsg(dir, color, data) {
-    return $('<li>')
+function makeNewMsg(dir, color, data, type) {
+    return $('<li>').attr('class', 'msg ')
         .append(
         $('<div>').attr('class', 'row')
             .append(
@@ -40,7 +38,7 @@ function makeNewMsg(dir, color, data) {
                     .append(
                     $('<div>').attr('class', 'card-content white-text')
                         .append(
-                        $('<span>').attr('class', 'card-title flow-text').text(data.info.nick)
+                        $('<span>').attr('class', 'card-title flow-text ' + type).text(data.info.nick)
                         )
                         .append(
                         $('<p>').text(data.msg)
@@ -69,6 +67,11 @@ function welcomeMsg() {
 
 function gotoTop() {
     window.scrollTo(0, 0)
+}
+
+function deleteMessages() {
+    $('.msg').fadeOut()
+    $('.msg').remove()
 }
 
 function changeChannel() {
@@ -104,6 +107,7 @@ function changeNick() {
             currentNick = nick
             addNewNotif('You changed your nick to ' + currentNick)
             notifyNameChange()
+            $('.me').text(currentNick)
         }
     }
 }
@@ -129,7 +133,7 @@ $('#msg').submit(function() {
     if ($('.welcome').length > 0)
         $('.welcome').remove()
 
-    $('#messages').append(makeNewMsg('right', 'light-blue', data))
+    $('#messages').append(makeNewMsg('right', 'light-blue', data, 'me'))
     $('#messages').append(
         $('<li>').append(
             $('<br>')
@@ -149,7 +153,7 @@ socket.on('Message.Receive', function(user) {
         if ($('.welcome').length > 0)
             $('.welcome').remove()
 
-        $('#messages').append(makeNewMsg('left', 'orange', user))
+        $('#messages').append(makeNewMsg('left', 'orange', user, ''))
         $('#messages').append(
             $('<li>').append(
                 $('<br>')
@@ -169,6 +173,10 @@ socket.on('Channel.Join', function(nick) {
 
 socket.on('Nick.Changed', function(nick) {
     addNewNotif(nick.prev.nick + ' is now ' + nick.curr.nick)
+})
+
+socket.on('User.Welcome', function() {
+    $('#messages').append(welcomeMsg())
 })
 
 function addNewNotif(info) {

@@ -30,6 +30,8 @@ app.get('/chat', (req, res) => {
 
 io.on('connection', socket => {
 
+    socket.emit('User.Welcome')
+
     socket.on('Message.Send', user => {
         console.log(user)
         socket.broadcast.emit('Message.Receive', user)
